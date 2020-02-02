@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var MIN_WIDTH = 0;
 var MAX_WIDTH = 1150;
@@ -9,8 +9,8 @@ var PIN_HEIGTH = 44;
 var HOUSING_TYPE = ['palace', 'flat', 'house', 'bungalo'];
 var CHECKIN = ['12:00', '13:00', '14:00'];
 var CHECKOUT = ['12:00', '13:00', '14:00'];
-var FEATURES = ["wifi", "dishwasher", "parking", "washer", "elevator", "conditioner"];
-var PHOTOS = ["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg"]
+var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var NUMBER_ADVERTS = 8;
 var adverts = [];
 var pinList = document.querySelector('.map__pins');
@@ -29,18 +29,18 @@ var getRandomArray = function (array) {
   for (var i = 0; i < getRandomNumber(1, array.length); i++) {
     randomArray[i] = getRandomElement(array);
     var idx = randomArray.indexOf(randomArray[i]);
-    if (idx === -1){
+    if (idx === -1) {
       randomArray.push(randomArray[i]);
     }
   }
   return randomArray;
-}
+};
 
-var getAdvertsArray = function (adverts) {
-  adverts[i] =
+var getAdvertsArray = function (advertsArray) {
+  advertsArray[i] =
   {
     author: {
-      avatar:'img/avatars/user0' + (i + 1) + '.png'
+      avatar: 'img/avatars/user0' + (i + 1) + '.png'
     },
     offer: {
       title: 'Заголовок',
@@ -59,31 +59,31 @@ var getAdvertsArray = function (adverts) {
       x: getRandomNumber(MIN_WIDTH, MAX_WIDTH),
       y: getRandomNumber(MIN_Y, MAX_Y)
     }
-  }
-  adverts.push(adverts[i]);
-}
+  };
+  advertsArray.push(advertsArray[i]);
+};
 
 
-var getNewPin = function (advert){
+var getNewPin = function (advert) {
   var newPin = pinTamplate.cloneNode(true);
   var newPinImg = newPin.querySelector('img');
   newPin.setAttribute('style', 'left: ' + (advert.location.x + PIN_WIDTH / 2) + 'px; top: ' + (advert.location.y + PIN_HEIGTH) + 'px');
   newPinImg.src = advert.author.avatar;
   newPinImg.alt = advert.offer.title;
   return newPin;
-}
+};
 
-var renderPins = function (adverts) {
+var renderPins = function (advertsArr) {
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i <adverts.length; i++) {
-    fragment.appendChild(getNewPin(adverts[i]));
+  for (var i = 0; i < advertsArr.length; i++) {
+    fragment.appendChild(getNewPin(advertsArr[i]));
   }
   return fragment;
-}
+};
 
 for (var i = 0; i < NUMBER_ADVERTS; i++) {
-  getAdvertsArray(adverts)
-};
-pinList.appendChild(renderPins(adverts));
+  getAdvertsArray(adverts);
+}
+
 document.querySelector('.map').classList.remove('map--faded');
-console.log (adverts);
+pinList.appendChild(renderPins(adverts));
