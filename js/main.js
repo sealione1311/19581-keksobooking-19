@@ -12,7 +12,6 @@ var CHECKOUT = ['12:00', '13:00', '14:00'];
 var FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 var PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var NUMBER_ADVERTS = 8;
-var adverts = [];
 var pinList = document.querySelector('.map__pins');
 var pinTamplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
@@ -25,22 +24,16 @@ var getRandomElement = function (array) {
 };
 
 var getRandomArray = function (array) {
-  var randomArray = [];
-  for (var i = 0; i < getRandomNumber(1, array.length); i++) {
-    randomArray[i] = getRandomElement(array);
-    var idx = randomArray.indexOf(randomArray[i]);
-    if (idx === -1) {
-      randomArray.push(randomArray[i]);
-    }
-  }
-  return randomArray;
+  var randomArray = array.slice(0, getRandomNumber(1, array.length));
+  return randomArray.sort(function (a, b) {
+    return 0.5 - Math.random();
+  });
 };
 
-var getAdvertsArray = function (advertsArray) {
-  advertsArray[i] =
-  {
+var generateAdvert = function (idx) {
+  return {
     author: {
-      avatar: 'img/avatars/user0' + (i + 1) + '.png'
+      avatar: 'img/avatars/user0' + (idx + 1)  + '.png'
     },
     offer: {
       title: 'Заголовок',
@@ -60,30 +53,32 @@ var getAdvertsArray = function (advertsArray) {
       y: getRandomNumber(MIN_Y, MAX_Y)
     }
   };
-  advertsArray.push(advertsArray[i]);
 };
 
+var generateAdverts = function (count) {
+  var adverts = [];
+  for (var i = 0; i < count; i++) {
+    adverts.push(generateAdvert(i));
+  }
+  return adverts;
+};
 
-var getNewPin = function (advert) {
+var renderPin = function (object) {
   var newPin = pinTamplate.cloneNode(true);
   var newPinImg = newPin.querySelector('img');
-  newPin.setAttribute('style', 'left: ' + (advert.location.x + PIN_WIDTH / 2) + 'px; top: ' + (advert.location.y + PIN_HEIGTH) + 'px');
-  newPinImg.src = advert.author.avatar;
-  newPinImg.alt = advert.offer.title;
+  newPin.setAttribute('style', 'left: ' + (object.location.x + PIN_WIDTH / 2) + 'px; top: ' + (object.location.y + PIN_HEIGTH) + 'px');
+  newPinImg.src = object.author.avatar;
+  newPinImg.alt = object.offer.title;
   return newPin;
 };
 
 var renderPins = function (advertsArr) {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < advertsArr.length; i++) {
-    fragment.appendChild(getNewPin(advertsArr[i]));
+    fragment.appendChild(renderPin(advertsArr[i]));
   }
   return fragment;
 };
 
-for (var i = 0; i < NUMBER_ADVERTS; i++) {
-  getAdvertsArray(adverts);
-}
-
 document.querySelector('.map').classList.remove('map--faded');
-pinList.appendChild(renderPins(adverts));
+pinList.appendChild(renderPins(generateAdverts(NUMBER_ADVERTS)));
