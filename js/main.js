@@ -20,7 +20,7 @@ var adForm = document.querySelector('.ad-form');
 var mainPin = document.querySelector('.map__pin--main');
 var formElements = adForm.querySelectorAll('fieldset');
 var filtersElements = document.querySelectorAll('[name^=housing-]');
-var roomSelect = adForm.querySelector('#room_number')
+var roomSelect = adForm.querySelector('#room_number');
 
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -32,7 +32,7 @@ var getRandomElement = function (array) {
 
 var getRandomArray = function (array) {
   var randomArray = array.slice(0, getRandomNumber(1, array.length));
-  return randomArray.sort(function (a, b) {
+  return randomArray.sort(function () {
     return 0.5 - Math.random();
   });
 };
@@ -40,7 +40,7 @@ var getRandomArray = function (array) {
 var generateAdvert = function (idx) {
   return {
     author: {
-      avatar: 'img/avatars/user0' + (idx + 1)  + '.png'
+      avatar: 'img/avatars/user0' + (idx + 1) + '.png'
     },
     offer: {
       title: 'Заголовок',
@@ -89,13 +89,13 @@ var renderPins = function (advertsArr) {
 
 var disableElements = function (elements) {
   for (var i = 0; i < elements.length; i++) {
-    elements[i].setAttribute("disabled", "true");
+    elements[i].setAttribute('disabled', 'true');
   }
 };
 
 var activateElements = function (elements) {
   for (var i = 0; i < elements.length; i++) {
-    elements[i].removeAttribute("disabled")
+    elements[i].removeAttribute('disabled');
   }
 };
 
@@ -116,8 +116,8 @@ var activateMap = function () {
 };
 
 var matchRoomsAndGuests = function () {
-  var roomNumber = parseInt(roomSelect.value);
-  var capacity = parseInt(adForm.querySelector('#capacity').value);
+  var roomNumber = parseInt(roomSelect.value, 10);
+  var capacity = parseInt(adForm.querySelector('#capacity').value, 10);
   if (roomNumber === 1 && capacity !== 1) {
     roomSelect.setCustomValidity('Можно выбрать 1 гостя');
   } else if ((roomNumber === 2 && capacity === 3) || (roomNumber === 2 && capacity === 0)) {
