@@ -139,7 +139,7 @@ var matchRoomsAndGuests = function () {
     roomSelect.setCustomValidity('');
     roomsError.textContent = '';
   }
-  roomsError.setAttribute("style", "color: red");
+  roomsError.setAttribute('style', 'color: red');
 };
 
 var roomsError = createElement('span', '.ad-form__element--rooms', 'rooms_error');
