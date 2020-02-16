@@ -25,11 +25,11 @@
       roomSelect.setCustomValidity('');
       roomsError.textContent = '';
     } roomsError.setAttribute('style', 'color: red');
-  }
+  };
   roomSelect.addEventListener('change', matchRoomsAndGuests);
   guestSelect.addEventListener('change', matchRoomsAndGuests);
 
   window.form = {
     matchRoomsAndGuests: matchRoomsAndGuests
-  }
+  };
 })();

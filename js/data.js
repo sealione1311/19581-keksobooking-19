@@ -40,5 +40,5 @@
     getRandomArray: getRandomArray,
     toggleDisabledElements: toggleDisabledElements,
     createElement: createElement
-  }
+  };
 })();

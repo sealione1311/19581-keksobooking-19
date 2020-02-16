@@ -66,11 +66,11 @@
     return fragment;
   };
 
-  var renderPinsAndAppend = function() {
+  var renderPinsAndAppend = function () {
     pinList.appendChild(renderPins(generateAdverts(NUMBER_ADVERTS)));
   };
 
   window.adverts = {
     renderPinsAndAppend: renderPinsAndAppend
-  }
+  };
 })();
