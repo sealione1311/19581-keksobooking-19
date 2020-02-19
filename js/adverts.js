@@ -5,8 +5,8 @@
   var MAX_WIDTH = 1150;
   var MIN_Y = 130;
   var MAX_Y = 630;
-  var PIN_WIDTH = 65;
-  var PIN_HEIGTH = 88;
+  var PIN_WIDTH = 50;
+  var PIN_HEIGTH = 70;
   var HOUSING_TYPE = ['palace', 'flat', 'house', 'bungalo'];
   var CHECKIN = ['12:00', '13:00', '14:00'];
   var CHECKOUT = ['12:00', '13:00', '14:00'];
@@ -52,7 +52,7 @@
   var renderPin = function (object) {
     var newPin = pinTamplate.cloneNode(true);
     var newPinImg = newPin.querySelector('img');
-    newPin.setAttribute('style', 'left: ' + (object.location.x + PIN_WIDTH / 2) + 'px; top: ' + (object.location.y + PIN_HEIGTH) + 'px');
+    newPin.setAttribute('style', 'left: ' + object.location.x + 'px; top: ' + object.location.y + 'px');
     newPinImg.src = object.author.avatar;
     newPinImg.alt = object.offer.title;
     return newPin;
@@ -70,7 +70,34 @@
     pinList.appendChild(renderPins(generateAdverts(NUMBER_ADVERTS)));
   };
 
+  var createElement = function (tag, parentClass) {
+    var elementNew = document.createElement(tag);
+    var parent = document.querySelector(parentClass);
+    parent.append(elementNew);
+    return elementNew;
+  };
+
+  var onError = function (errorMassage) {
+    var spanError = createElement('span', '.promo');
+    spanError.style = 'z-index: 100; margin: 0 auto; text-align: center; color: red;';
+    spanError.textContent = errorMassage;
+    spanError.style.position = 'absolute';
+    spanError.style.left = 0;
+    spanError.style.right = 0;
+    spanError.style.fontSize = '20px';
+  };
+
+  var onLoad = function (adverts) {
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < NUMBER_ADVERTS; i++) {
+      fragment.appendChild(renderPin(adverts[i]));
+    }
+    pinList.appendChild(fragment);
+  };
+
   window.adverts = {
-    renderPinsAndAppend: renderPinsAndAppend
+    renderPinsAndAppend: renderPinsAndAppend,
+    onLoad: onLoad,
+    onError: onError
   };
 })();

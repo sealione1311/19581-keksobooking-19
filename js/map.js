@@ -18,7 +18,7 @@
     window.data.toggleDisabledElements(filtersElements, false);
     adForm.classList.remove('ad-form--disabled');
     document.querySelector('.map').classList.remove('map--faded');
-    window.adverts.renderPinsAndAppend();
+    window.backend.load(window.adverts.onLoad, window.adverts.onError);
     mainPin.removeEventListener('mousedown', activateMap);
     mainPin.removeEventListener('keydown', activateMap);
     window.form.matchRoomsAndGuests();
