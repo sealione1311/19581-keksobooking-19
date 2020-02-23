@@ -18,10 +18,9 @@
   var filterAdverts = function () {
     if (housingType.value === 'any') {
       window.render.pins(advertsData);
-    }
-    else {
+    } else {
       var filteredAdverts = advertsData.filter(function (advert) {
-        return advert.offer.type === housingType.value;
+      return advert.offer.type === housingType.value;
       });
       window.render.pins(filteredAdverts);
     }
@@ -32,8 +31,7 @@
     filterAdverts();
   };
 
-  housingType.addEventListener ('change', filterAdverts);
-
+  housingType.addEventListener('change', filterAdverts);
   window.adverts = {
     onLoad: onLoad,
     onError: onError

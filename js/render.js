@@ -26,5 +26,5 @@
 
   window.render = {
     pins: renderPins
-  }
+  };
 })();
