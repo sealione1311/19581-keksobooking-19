@@ -19,7 +19,7 @@
     if (housingType.value === 'any') {
       window.render.pins(advertsData);
     } else {
-        var filteredAdverts = advertsData.filter(function (advert) {
+      var filteredAdverts = advertsData.filter(function (advert) {
         return advert.offer.type === housingType.value;
       });
       window.render.pins(filteredAdverts);
