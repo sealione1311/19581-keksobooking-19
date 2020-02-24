@@ -29,7 +29,7 @@
   var onLoad = function (data) {
     advertsData = data;
     filterAdverts();
-    window.cards.render(data)
+    window.cards.render(data);
   };
 
   housingType.addEventListener('change', filterAdverts);

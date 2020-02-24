@@ -16,7 +16,7 @@
     var newFeatures = document.createElement('ul');
     newFeatures.classList.add('popup__features');
     featuresList.appendChild(newFeatures);
-    object.offer.features.forEach(function(feature) {
+    object.offer.features.forEach(function (feature) {
       var newFeature = document.createElement('li');
       newFeature.classList.add('popup__feature');
       newFeature.classList.add('popup__feature--' + feature);
@@ -54,7 +54,7 @@
     newCard.querySelector('.popup__features').replaceWith(renderFeatures(object));
     newCard.querySelector('.popup__photos').replaceWith(renderPhotos(object));
     var emptyElements = newCard.querySelectorAll('p:empty, ul:empty, div:empty');
-    emptyElements.forEach (function (element) {
+    emptyElements.forEach(function (element) {
       element.remove();
     });
     return newCard;
@@ -71,5 +71,5 @@
 
   window.cards = {
     render: renderCards
-  }
+  };
 })();
