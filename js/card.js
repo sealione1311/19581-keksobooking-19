@@ -3,7 +3,7 @@
 (function () {
   var cardTamplate = document.querySelector('#card').content.querySelector('.map__card');
   var pinList = document.querySelector('.map__pins');
-  var NUMBER_ADVERTS = 3;
+
   var typeOfHousing = {
     palace: 'Дворец',
     flat: 'Квартира',
@@ -57,19 +57,29 @@
     emptyElements.forEach(function (element) {
       element.remove();
     });
-    return newCard;
-  };
+    var buttonClose = newCard.querySelector('.popup__close');
+    var closePopup = function () {
+      newCard.remove();
+      var pinActive = document.querySelector('.map__pin--active');
+      if (pinActive) {
+        pinActive.classList.remove('map__pin--active');
+      }
+    };
 
-  var renderCards = function (advertsArray) {
-    var advertsNumber = advertsArray.length > NUMBER_ADVERTS ? NUMBER_ADVERTS : advertsArray.length;
-    var fragment = document.createDocumentFragment();
-    for (var i = 2; i < advertsNumber; i++) {
-      fragment.appendChild(renderCard(advertsArray[i]));
-    }
-    pinList.after(fragment);
+
+    buttonClose.addEventListener('click', closePopup);
+
+    buttonClose.addEventListener('keydown', function (evt) {
+      if (evt.key === window.data.escape) {
+        closePopup;
+      }
+    });
+
+
+    pinList.after(newCard);
   };
 
   window.cards = {
-    render: renderCards
+    render: renderCard
   };
 })();

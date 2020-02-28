@@ -1,7 +1,18 @@
 'use strict';
 
 (function () {
+  var minPrice = {
+    bungalo: '0',
+    flat: '1000',
+    house: '5000',
+    palace: '10000'
+  };
+
   var adForm = document.querySelector('.ad-form');
+  var timeInSelect = adForm.querySelector('#timein');
+  var timeOut = adForm.querySelector('#timeout');
+  var typeSelect = adForm.querySelector('#type');
+  var priceInput = adForm.querySelector('#price');
   var roomSelect = adForm.querySelector('#room_number');
   var guestSelect = adForm.querySelector('#capacity');
   var roomsError = window.data.createElement('span', '.ad-form__element--rooms', 'rooms_error');
@@ -38,7 +49,24 @@
   roomSelect.addEventListener('change', matchRoomsAndGuests);
   guestSelect.addEventListener('change', matchRoomsAndGuests);
 
+  typeSelect.addEventListener('change', function (evt) {
+    priceInput.placeholder = minPrice[evt.target.value];
+    priceInput.min = minPrice[evt.target.value]
+  });
+  timeInSelect.addEventListener('change', function (evt) {
+    timeOut.value = evt.target.value ;
+  });
+  timeOut.addEventListener('change', function (evt) {
+    timeInSelect.value = evt.target.value ;
+  });
+
+
+
+
+
+
   window.form = {
-    matchRoomsAndGuests: matchRoomsAndGuests
+    matchRoomsAndGuests: matchRoomsAndGuests,
+
   };
 })();

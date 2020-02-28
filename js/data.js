@@ -3,6 +3,7 @@
 (function () {
   var ENTER_KEY = 'Enter';
   var LEFT_KEY_MOUSE = 1;
+  var ESCAPE = 'Escape';
 
   var getRandomNumber = function (min, max) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -34,6 +35,7 @@
 
   window.data = {
     enter: ENTER_KEY,
+    escape: ESCAPE,
     leftKeyMouse: LEFT_KEY_MOUSE,
     getRandomNumber: getRandomNumber,
     getRandomElement: getRandomElement,
