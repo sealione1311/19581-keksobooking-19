@@ -65,17 +65,12 @@
         pinActive.classList.remove('map__pin--active');
       }
     };
-
-
     buttonClose.addEventListener('click', closePopup);
-
-    buttonClose.addEventListener('keydown', function (evt) {
+    document.addEventListener('keydown', function (evt) {
       if (evt.key === window.data.escape) {
-        closePopup;
+        closePopup();
       }
     });
-
-
     pinList.after(newCard);
   };
 

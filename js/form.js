@@ -51,20 +51,14 @@
 
   typeSelect.addEventListener('change', function (evt) {
     priceInput.placeholder = minPrice[evt.target.value];
-    priceInput.min = minPrice[evt.target.value]
+    priceInput.min = minPrice[evt.target.value];
   });
   timeInSelect.addEventListener('change', function (evt) {
-    timeOut.value = evt.target.value ;
+    timeOut.value = evt.target.value;
   });
   timeOut.addEventListener('change', function (evt) {
-    timeInSelect.value = evt.target.value ;
+    timeInSelect.value = evt.target.value;
   });
-
-
-
-
-
-
   window.form = {
     matchRoomsAndGuests: matchRoomsAndGuests,
 

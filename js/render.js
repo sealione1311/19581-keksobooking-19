@@ -20,15 +20,15 @@
         pinActive.classList.remove('map__pin--active');
         popup.remove();
       } else {
-      window.cards.render(object);
-      newPin.classList.add('map__pin--active');
+        window.cards.render(object);
+        newPin.classList.add('map__pin--active');
       }
     };
 
     newPin.addEventListener('click', openPopup);
     newPin.addEventListener('keydown', function (evt) {
       if (evt.key === window.data.enter) {
-        openPopup;
+        openPopup();
       }
     });
     return newPin;
@@ -43,10 +43,6 @@
     }
     pinList.appendChild(fragment);
   };
-
-
-
-
   window.render = {
     pins: renderPins
   };
