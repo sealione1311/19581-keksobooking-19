@@ -61,12 +61,11 @@
             case (current < min):
               current = min;
               return;
-            default:
-              return current;
           }
+          return current;
         };
-        var currentLeftCoord = getCurrentCoords (MAP_LIMIT.left, MAP_LIMIT.right, (mainPin.offsetLeft - shift.x));
-        var currentTopCoord = getCurrentCoords (MAP_LIMIT.top, MAP_LIMIT.bottom, (mainPin.offsetTop - shift.y));
+        var currentLeftCoord = getCurrentCoords(MAP_LIMIT.left, MAP_LIMIT.right, (mainPin.offsetLeft - shift.x));
+        var currentTopCoord = getCurrentCoords(MAP_LIMIT.top, MAP_LIMIT.bottom, (mainPin.offsetTop - shift.y));
         mainPin.style.top = currentTopCoord + 'px';
         mainPin.style.left = currentLeftCoord + 'px';
         addressInput.value = (currentLeftCoord + PIN_WIDTH / 2) + 'px' + ' ' + (currentTopCoord + PIN_HEIGHT) + 'px';
