@@ -36,14 +36,16 @@
 
   var renderPins = function (advertsArr) {
     var advertsNumber = advertsArr.length > NUMBER_ADVERTS ? NUMBER_ADVERTS : advertsArr.length;
-    pinList.innerHTML = '';
+
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < advertsNumber; i++) {
       fragment.appendChild(renderPin(advertsArr[i]));
     }
     pinList.appendChild(fragment);
   };
-  window.render = {
-    pins: renderPins
+
+
+  window.pins = {
+    render: renderPins
   };
 })();
