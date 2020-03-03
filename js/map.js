@@ -57,10 +57,10 @@
           switch (true) {
             case (current > max):
               current = max;
-              return;
+              break;
             case (current < min):
               current = min;
-              return;
+              break;
           }
           return current;
         };
