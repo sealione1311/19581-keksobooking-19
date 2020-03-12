@@ -64,13 +64,16 @@
       if (pinActive) {
         pinActive.classList.remove('map__pin--active');
       }
+      buttonClose.removeEventListener('click', closePopup);
+      document.removeEventListener('keydown', onPopupPressEscape);
     };
-    buttonClose.addEventListener('click', closePopup);
-    document.addEventListener('keydown', function (evt) {
+    var onPopupPressEscape = function (evt) {
       if (evt.key === window.data.escape) {
         closePopup();
       }
-    });
+    };
+    buttonClose.addEventListener('click', closePopup);
+    document.addEventListener('keydown', onPopupPressEscape);
     pinList.after(newCard);
   };
 

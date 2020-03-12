@@ -48,7 +48,6 @@
   };
   roomSelect.addEventListener('change', matchRoomsAndGuests);
   guestSelect.addEventListener('change', matchRoomsAndGuests);
-
   typeSelect.addEventListener('change', function (evt) {
     priceInput.placeholder = minPrice[evt.target.value];
     priceInput.min = minPrice[evt.target.value];
@@ -59,8 +58,11 @@
   timeOut.addEventListener('change', function (evt) {
     timeInSelect.value = evt.target.value;
   });
+  adForm.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(adForm), window.map.onLoadData, window.adverts.onError);
+  });
   window.form = {
-    matchRoomsAndGuests: matchRoomsAndGuests,
-
+    matchRoomsAndGuests: matchRoomsAndGuests
   };
 })();

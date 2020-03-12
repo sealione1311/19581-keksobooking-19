@@ -9,18 +9,27 @@
     bottom: 630 - PIN_HEIGHT,
     left: 0 - PIN_WIDTH / 2
   };
-  var UNACTIVE_PIN_COORDS = '375px  575px';
+  var UNACTIVE_PIN_COORDS = '608px  408px';
+  var MAIN_PIN_LEFT = '575px';
+  var MAIN_PIN_TOP = '375px';
   var adForm = document.querySelector('.ad-form');
   var map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
   var addressInput = adForm.querySelector('input[name=address]');
   var formElements = adForm.querySelectorAll('fieldset');
   var filtersElements = document.querySelectorAll('[name^=housing-]');
+  var resetButton = adForm.querySelector('.ad-form__reset');
 
   var disableMap = function () {
+    map.classList.add('map--faded');
     adForm.classList.add('ad-form--disabled');
     window.data.toggleDisabledElements(formElements, true);
     window.data.toggleDisabledElements(filtersElements, true);
+    mainPin.style.left = MAIN_PIN_LEFT;
+    mainPin.style.top = MAIN_PIN_TOP;
+    addressInput.value = UNACTIVE_PIN_COORDS;
+    mainPin.addEventListener('mousedown', activateMap);
+    mainPin.addEventListener('keydown', onMainPinKeydown);
   };
 
   var activateMap = function () {
@@ -30,12 +39,31 @@
     map.classList.remove('map--faded');
     window.backend.load(window.adverts.onLoad, window.adverts.onError);
     mainPin.removeEventListener('mousedown', activateMap);
-    mainPin.removeEventListener('keydown', activateMap);
+    mainPin.removeEventListener('keydown', onMainPinKeydown);
     window.form.matchRoomsAndGuests();
   };
 
+  var resetForm = function (){
+    window.data.removePins();
+    adForm.reset();
+    disableMap();
+    window.data.removeCard();
+  };
+
+  var onLoadData = function () {
+    resetForm();
+    window.messages.success();
+  };
+
+  var onMainPinKeydown = function (evt) {
+    if (evt.key === window.data.enter) {
+      activateMap();
+    }
+  };
+
+  resetButton.addEventListener('click', resetForm);
   disableMap();
-  addressInput.value = UNACTIVE_PIN_COORDS;
+  mainPin.addEventListener('keydown', onMainPinKeydown);
   mainPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
     if (evt.which === window.data.leftKeyMouse) {
@@ -43,6 +71,7 @@
         x: evt.clientX,
         y: evt.clientY
       };
+
       var onMouseMove = function (moveEvt) {
         moveEvt.preventDefault();
         var shift = {
@@ -69,11 +98,11 @@
         mainPin.style.top = currentTopCoord + 'px';
         mainPin.style.left = currentLeftCoord + 'px';
         addressInput.value = (currentLeftCoord + PIN_WIDTH / 2) + 'px' + ' ' + (currentTopCoord + PIN_HEIGHT) + 'px';
+
       };
 
       var onMouseUp = function (upEvt) {
         upEvt.preventDefault();
-        activateMap();
         document.removeEventListener('mousemove', onMouseMove);
         document.removeEventListener('mouseup', onMouseUp);
       };
@@ -82,9 +111,7 @@
     }
   });
 
-  mainPin.addEventListener('keydown', function (evt) {
-    if (evt.key === window.data.enter) {
-      activateMap();
-    }
-  });
+  window.map = {
+    onLoadData: onLoadData
+  };
 })();
