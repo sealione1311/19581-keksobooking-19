@@ -43,7 +43,7 @@
     window.form.matchRoomsAndGuests();
   };
 
-  var resetForm = function (){
+  var resetForm = function () {
     window.data.removePins();
     adForm.reset();
     disableMap();

@@ -26,7 +26,7 @@
     document.addEventListener('click', onSuccessMessageClick);
   };
 
-  var showErrorMessage= function (errorText) {
+  var showErrorMessage = function (errorText) {
     var errorMessage = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
     var text = errorMessage.querySelector('.error__message');
 
@@ -54,5 +54,5 @@
   window.messages = {
     success: showSuccessMessage,
     error: showErrorMessage
-  }
+  };
 })();

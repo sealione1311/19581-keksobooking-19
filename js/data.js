@@ -50,7 +50,7 @@
 
   var removeCard = function () {
     var card = document.querySelector('.popup');
-    if(card) {
+    if (card) {
       card.remove();
     }
   };
