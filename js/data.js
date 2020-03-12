@@ -1,9 +1,11 @@
 'use strict';
 
 (function () {
-  var ENTER_KEY = 'Enter';
-  var LEFT_KEY_MOUSE = 1;
-  var ESCAPE = 'Escape';
+  var KEYS = {
+    ENTER: 'Enter',
+    LEFT_MOUSE: 1,
+    ESCAPE: 'Escape'
+  };
 
   var getRandomNumber = function (min, max) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -19,10 +21,16 @@
       return 0.5 - Math.random();
     });
   };
+  var getSortedArray = function (array) {
+    return array.sort(function () {
+      return 0.5 - Math.random();
+    });
+  };
+
   var toggleDisabledElements = function (elements, value) {
-    for (var i = 0; i < elements.length; i++) {
-      elements[i].disabled = value;
-    }
+    elements.forEach(function (element) {
+      element.disabled = value;
+    });
   };
 
   var createElement = function (tag, parentClass, elementClass) {
@@ -33,14 +41,31 @@
     return elementNew;
   };
 
+  var removePins = function () {
+    var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    pins.forEach(function (pin) {
+      pin.remove();
+    });
+  };
+
+  var removeCard = function () {
+    var card = document.querySelector('.popup');
+    if (card) {
+      card.remove();
+    }
+  };
+
   window.data = {
-    enter: ENTER_KEY,
-    escape: ESCAPE,
-    leftKeyMouse: LEFT_KEY_MOUSE,
+    enter: KEYS.ENTER,
+    escape: KEYS.ESCAPE,
+    leftKeyMouse: KEYS.LEFT_MOUSE,
     getRandomNumber: getRandomNumber,
     getRandomElement: getRandomElement,
     getRandomArray: getRandomArray,
     toggleDisabledElements: toggleDisabledElements,
-    createElement: createElement
+    createElement: createElement,
+    removePins: removePins,
+    removeCard: removeCard,
+    sortedArray: getSortedArray
   };
 })();
