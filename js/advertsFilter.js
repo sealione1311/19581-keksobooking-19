@@ -59,14 +59,14 @@
     });
   };
 
-  var filtrate = function() {
+  var filtrate = function () {
     adverts = advertsData.slice(0);
     adverts = adverts.filter(function (advert) {
       return getHousingType(advert) && getHousingPrice(advert) && getHousingRooms(advert) && getHousingGuests(advert) && getHousingFeatures(advert);
     });
   };
 
-  var reload = function() {
+  var reload = function () {
     window.debounce(filtrate);
     window.data.removeCard();
     window.data.removePins();
