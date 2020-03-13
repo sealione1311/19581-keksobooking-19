@@ -48,6 +48,7 @@
     adForm.reset();
     disableMap();
     window.data.removeCard();
+    window.upload.remove();
   };
 
   var onLoadData = function () {

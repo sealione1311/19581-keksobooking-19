@@ -77,7 +77,7 @@
     pinList.after(newCard);
   };
 
-  window.cards = {
+  window.card = {
     render: renderCard
   };
 })();

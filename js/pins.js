@@ -12,6 +12,7 @@
     newPin.setAttribute('style', 'left: ' + object.location.x + 'px; top: ' + object.location.y + 'px');
     newPinImg.src = object.author.avatar;
     newPinImg.alt = object.offer.title;
+
     var openPopup = function () {
       var pinActive = map.querySelector('.map__pin--active');
       var popup = map.querySelector('.popup');
@@ -22,17 +23,23 @@
       if (popup) {
         removeCard();
       } else {
-        window.cards.render(object);
+        window.card.render(object);
         newPin.classList.add('map__pin--active');
       }
     };
 
-    newPin.addEventListener('click', openPopup);
-    newPin.addEventListener('keydown', function (evt) {
+    var onPinKeydown = function (evt) {
       if (evt.key === window.data.enter) {
         openPopup();
       }
-    });
+    };
+
+    newPin.addEventListener('click', openPopup);
+    newPin.addEventListener('keydown', onPinKeydown);
+
+    if (!object.offer) {
+      newPin.remove();
+    }
     return newPin;
   };
 
