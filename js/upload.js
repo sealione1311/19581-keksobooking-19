@@ -13,7 +13,7 @@
     var fileName = file.name.toLowerCase();
 
     var matches = FILE_TYPES.some(function (it) {
-     return fileName.endsWith(it);
+      return fileName.endsWith(it);
     });
 
     if (matches) {
@@ -31,7 +31,7 @@
     var fileName = file.name.toLowerCase();
 
     var matches = FILE_TYPES.some(function (it) {
-     return fileName.endsWith(it);
+      return fileName.endsWith(it);
     });
 
     if (matches) {
@@ -53,7 +53,7 @@
     previewPhoto.textContent = '';
   };
 
-  window.upload =  {
+  window.upload = {
     remove: removeImages
-  }
+  };
 })();
