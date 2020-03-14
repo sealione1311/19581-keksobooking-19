@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-
   var STATUS_CODE = {
     OK: 200,
     BAD_REQUEST: 400,
@@ -13,7 +12,7 @@
     GET: 'GET',
     POST: 'POST'
   };
-    var RESPONSE_TYPE = 'json';
+  var RESPONSE_TYPE = 'json';
 
   var load = function (onLoad, onError) {
     var URL = 'https://js.dump.academy/keksobooking/data';
@@ -74,7 +73,7 @@
           break;
         case STATUS_CODE.NOT_FOUND:
           error = 'Ничего не найдено';
-        break;
+          break;
         default:
           error = 'Cтатус ответа: : ' + xhr.status + ' ' + xhr.statusText;
       }
