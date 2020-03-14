@@ -2,16 +2,15 @@
 
 (function () {
   var HOUSING__PRICE = {
-    lowMax: 10000,
-    middleMin: 10000,
-    middleMax: 50000,
-    hightMin: 50000
+    LOW_MAX: 10000,
+    MIDDLE_MIN: 10000,
+    MIDDLE_MAX: 50000,
+    HIGHT_MIN: 50000
   };
   var advertsData = [];
   var adverts = [];
   var mapFilters = document.querySelector('.map__filters');
   var housingType = document.querySelector('#housing-type');
-
   var housingPrice = document.querySelector('#housing-price');
   var housingRooms = document.querySelector('#housing-rooms');
   var housingGuests = document.querySelector('#housing-guests');
@@ -32,13 +31,13 @@
   var getHousingPrice = function (advert) {
     switch (housingPrice.value) {
       case ('low'):
-        return advert.offer.price < HOUSING__PRICE.lowMax;
+        return advert.offer.price < HOUSING__PRICE.LOW_MAX;
 
       case ('middle'):
-        return advert.offer.price >= HOUSING__PRICE.middleMin && advert.offer.price < HOUSING__PRICE.middleMax;
+        return advert.offer.price >= HOUSING__PRICE.MIDDLE_MIN && advert.offer.price < HOUSING__PRICE.MIDDLE_MAX;
 
       case ('high'):
-        return advert.offer.price >= HOUSING__PRICE.hightMin;
+        return advert.offer.price >= HOUSING__PRICE.HIGHT_MIN;
     }
     return true;
   };
@@ -74,6 +73,7 @@
   };
 
   mapFilters.addEventListener('change', reload);
+
   window.adverts = {
     onLoad: onLoad,
     onError: onError,

@@ -2,18 +2,43 @@
 
 (function () {
 
-  var STATUS_OK = 200;
+  var STATUS_CODE = {
+    OK: 200,
+    BAD_REQUEST: 400,
+    UNATHORIZED: 401,
+    NOT_FOUND: 404,
+  };
   var TIMEOUT_IN_MS = 10000;
+  var METHODS = {
+    GET: 'GET',
+    POST: 'POST'
+  };
+   var RESPONSE_TYPE = 'json';
 
   var load = function (onLoad, onError) {
     var URL = 'https://js.dump.academy/keksobooking/data';
     var xhr = new XMLHttpRequest();
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === STATUS_OK) {
+      var error;
+      switch (xhr.status) {
+      case STATUS_CODE.OK:
         onLoad(xhr.response);
-      } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        break;
+      case STATUS_CODE.BAD_REQUEST:
+        error = 'Неверный запрос';
+        break;
+      case STATUS_CODE.UNATHORIZED:
+        error = 'Пользователь не авторизован';
+        break;
+      case STATUS_CODE.NOT_FOUND:
+        error = 'Ничего не найдено';
+      break;
+      default:
+        error = 'Cтатус ответа: : ' + xhr.status + ' ' + xhr.statusText;
+      }
+      if (error) {
+        onError(error);
       }
     });
 
@@ -25,9 +50,9 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.responseType = 'json';
+    xhr.responseType = RESPONSE_TYPE;
     xhr.timeout = TIMEOUT_IN_MS;
-    xhr.open('GET', URL);
+    xhr.open(METHODS.GET, URL);
     xhr.send();
   };
 
@@ -36,10 +61,25 @@
     var xhr = new XMLHttpRequest();
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === STATUS_OK) {
+      var error;
+      switch (xhr.status) {
+      case STATUS_CODE.OK:
         onLoadData();
-      } else {
-        onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        break;
+      case STATUS_CODE.BAD_REQUEST:
+        error = 'Неверный запрос';
+        break;
+      case STATUS_CODE.UNATHORIZED:
+        error = 'Пользователь не авторизован';
+        break;
+      case STATUS_CODE.NOT_FOUND:
+        error = 'Ничего не найдено';
+      break;
+      default:
+        error = 'Cтатус ответа: : ' + xhr.status + ' ' + xhr.statusText;
+      }
+      if (error) {
+        onError(error);
       }
     });
 
@@ -51,9 +91,9 @@
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.responseType = 'json';
+    xhr.responseType = RESPONSE_TYPE;
     xhr.timeout = TIMEOUT_IN_MS;
-    xhr.open('POST', URL);
+    xhr.open(METHODS.POST, URL);
     xhr.send(data);
   };
 

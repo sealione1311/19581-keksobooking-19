@@ -21,6 +21,7 @@
       return 0.5 - Math.random();
     });
   };
+
   var getSortedArray = function (array) {
     return array.sort(function () {
       return 0.5 - Math.random();

@@ -28,15 +28,7 @@
       }
     };
 
-    var onPinKeydown = function (evt) {
-      if (evt.key === window.data.enter) {
-        openPopup();
-      }
-    };
-
     newPin.addEventListener('click', openPopup);
-    newPin.addEventListener('keydown', onPinKeydown);
-
     if (!object.offer) {
       newPin.remove();
     }

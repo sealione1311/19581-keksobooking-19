@@ -3,14 +3,12 @@
 (function () {
   var cardTamplate = document.querySelector('#card').content.querySelector('.map__card');
   var pinList = document.querySelector('.map__pins');
-
   var typeOfHousing = {
     palace: 'Дворец',
     flat: 'Квартира',
     bungalo: 'Бунгало',
     house: 'Дом'
   };
-
   var renderFeatures = function (object) {
     var featuresList = document.createDocumentFragment();
     var newFeatures = document.createElement('ul');

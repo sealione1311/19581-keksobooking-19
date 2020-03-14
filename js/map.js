@@ -4,10 +4,10 @@
   var PIN_WIDTH = 66;
   var PIN_HEIGHT = 86;
   var MAP_LIMIT = {
-    top: 130,
-    right: 1200 - PIN_WIDTH / 2,
-    bottom: 630 - PIN_HEIGHT,
-    left: 0 - PIN_WIDTH / 2
+    TOP: 130,
+    RIGHT: 1200 - PIN_WIDTH / 2,
+    BOTTOM: 630 - PIN_HEIGHT,
+    LEFT: 0 - PIN_WIDTH / 2
   };
   var UNACTIVE_PIN_COORDS = '608px  408px';
   var MAIN_PIN_LEFT = '575px';
@@ -41,6 +41,7 @@
     mainPin.removeEventListener('mousedown', activateMap);
     mainPin.removeEventListener('keydown', onMainPinKeydown);
     window.form.matchRoomsAndGuests();
+    window.form.matchTypeAndPrice();
   };
 
   var resetForm = function () {
@@ -49,6 +50,7 @@
     disableMap();
     window.data.removeCard();
     window.upload.remove();
+    window.form.setSelectDefault();
   };
 
   var onLoadData = function () {
@@ -94,12 +96,11 @@
           }
           return current;
         };
-        var currentLeftCoord = getCurrentCoords(MAP_LIMIT.left, MAP_LIMIT.right, (mainPin.offsetLeft - shift.x));
-        var currentTopCoord = getCurrentCoords(MAP_LIMIT.top, MAP_LIMIT.bottom, (mainPin.offsetTop - shift.y));
+        var currentLeftCoord = getCurrentCoords(MAP_LIMIT.LEFT, MAP_LIMIT.RIGHT, (mainPin.offsetLeft - shift.x));
+        var currentTopCoord = getCurrentCoords(MAP_LIMIT.TOP, MAP_LIMIT.BOTTOM, (mainPin.offsetTop - shift.y));
         mainPin.style.top = currentTopCoord + 'px';
         mainPin.style.left = currentLeftCoord + 'px';
         addressInput.value = (currentLeftCoord + PIN_WIDTH / 2) + 'px' + ' ' + (currentTopCoord + PIN_HEIGHT) + 'px';
-
       };
 
       var onMouseUp = function (upEvt) {

@@ -5,7 +5,6 @@
   var showSuccessMessage = function () {
     var successMessage = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
 
-
     var removeSuccessMessage = function () {
       successMessage.remove();
       document.removeEventListener('keydown', onSuccessMessageEscPress);
@@ -17,6 +16,7 @@
         removeSuccessMessage();
       }
     };
+
     var onSuccessMessageClick = function () {
       removeSuccessMessage();
     };
@@ -42,15 +42,18 @@
         removeErrorMessage();
       }
     };
+
     var onErrorMessageClick = function () {
       removeErrorMessage();
     };
+
     text.textContent = errorText;
     main.appendChild(errorMessage);
     errorButton.addEventListener('click', onErrorMessageClick);
     document.addEventListener('keydown', onErrorMessageEscPress);
     document.addEventListener('mousedown', onErrorMessageClick);
   };
+
   window.messages = {
     success: showSuccessMessage,
     error: showErrorMessage
