@@ -13,7 +13,7 @@
     GET: 'GET',
     POST: 'POST'
   };
-   var RESPONSE_TYPE = 'json';
+    var RESPONSE_TYPE = 'json';
 
   var load = function (onLoad, onError) {
     var URL = 'https://js.dump.academy/keksobooking/data';
@@ -22,20 +22,20 @@
     xhr.addEventListener('load', function () {
       var error;
       switch (xhr.status) {
-      case STATUS_CODE.OK:
-        onLoad(xhr.response);
-        break;
-      case STATUS_CODE.BAD_REQUEST:
-        error = 'Неверный запрос';
-        break;
-      case STATUS_CODE.UNATHORIZED:
-        error = 'Пользователь не авторизован';
-        break;
-      case STATUS_CODE.NOT_FOUND:
-        error = 'Ничего не найдено';
-      break;
-      default:
-        error = 'Cтатус ответа: : ' + xhr.status + ' ' + xhr.statusText;
+        case STATUS_CODE.OK:
+          onLoad(xhr.response);
+          break;
+        case STATUS_CODE.BAD_REQUEST:
+          error = 'Неверный запрос';
+          break;
+        case STATUS_CODE.UNATHORIZED:
+          error = 'Пользователь не авторизован';
+          break;
+        case STATUS_CODE.NOT_FOUND:
+          error = 'Ничего не найдено';
+          break;
+        default:
+          error = 'Cтатус ответа: : ' + xhr.status + ' ' + xhr.statusText;
       }
       if (error) {
         onError(error);
@@ -63,20 +63,20 @@
     xhr.addEventListener('load', function () {
       var error;
       switch (xhr.status) {
-      case STATUS_CODE.OK:
-        onLoadData();
+        case STATUS_CODE.OK:
+          onLoadData();
+          break;
+        case STATUS_CODE.BAD_REQUEST:
+          error = 'Неверный запрос';
+          break;
+        case STATUS_CODE.UNATHORIZED:
+          error = 'Пользователь не авторизован';
+          break;
+        case STATUS_CODE.NOT_FOUND:
+          error = 'Ничего не найдено';
         break;
-      case STATUS_CODE.BAD_REQUEST:
-        error = 'Неверный запрос';
-        break;
-      case STATUS_CODE.UNATHORIZED:
-        error = 'Пользователь не авторизован';
-        break;
-      case STATUS_CODE.NOT_FOUND:
-        error = 'Ничего не найдено';
-      break;
-      default:
-        error = 'Cтатус ответа: : ' + xhr.status + ' ' + xhr.statusText;
+        default:
+          error = 'Cтатус ответа: : ' + xhr.status + ' ' + xhr.statusText;
       }
       if (error) {
         onError(error);

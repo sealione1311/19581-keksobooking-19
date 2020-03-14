@@ -44,17 +44,17 @@
       default:
         roomSelect.setCustomValidity('');
         roomsError.textContent = '';
-    } roomsError.setAttribute('style','color: red');
+    } roomsError.setAttribute('style', 'color: red');
   };
 
   var matchTypeAndPrice = function () {
     var minPriceValue = parseInt(priceInput.min, 10);
-    typeError.setAttribute('style','color: red');
-    if (priceInput.value < minPriceValue){
+    typeError.setAttribute('style', 'color: red');
+    if (priceInput.value < minPriceValue) {
       typeError.textContent = 'Введите цену не менее ' + minPriceValue;
     } else {
-      typeError.textContent = ''
-    };
+      typeError.textContent = '';
+    }
   };
 
   var onTypeSelectChange = function () {
@@ -89,8 +89,8 @@
   priceInput.addEventListener('keyup', onTypeSelectChange);
   priceInput.addEventListener('change', onTypeSelectChange);
   timeInSelect.addEventListener('change', onTimeinChange);
-  timeOutSelect.addEventListener('change',onTimeOutChange);
-  adForm.addEventListener('submit', onFormSubmit)
+  timeOutSelect.addEventListener('change', onTimeOutChange);
+  adForm.addEventListener('submit', onFormSubmit);
 
   window.form = {
     matchRoomsAndGuests: matchRoomsAndGuests,
