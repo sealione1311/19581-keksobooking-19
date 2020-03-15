@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var DEFAULT_SRC_AVATAR = 'img/muffin-grey.svg';
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
   var avatarChooser = document.querySelector('.ad-form-header__input');
   var previewAvatar = document.querySelector('.ad-form-header__preview img');
@@ -49,7 +50,7 @@
   });
 
   var removeImages = function () {
-    previewAvatar.src = 'img/muffin-grey.svg';
+    previewAvatar.src = DEFAULT_SRC_AVATAR;
     previewPhoto.textContent = '';
   };
 

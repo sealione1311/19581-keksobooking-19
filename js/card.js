@@ -1,14 +1,16 @@
 'use strict';
 
 (function () {
-  var cardTamplate = document.querySelector('#card').content.querySelector('.map__card');
-  var pinList = document.querySelector('.map__pins');
+  var PHOTO_WIDTH = 45;
+  var PHOTO_HEIGHT = 40;
   var typeOfHousing = {
     palace: 'Дворец',
     flat: 'Квартира',
     bungalo: 'Бунгало',
     house: 'Дом'
   };
+  var cardTamplate = document.querySelector('#card').content.querySelector('.map__card');
+  var pinList = document.querySelector('.map__pins');
   var renderFeatures = function (object) {
     var featuresList = document.createDocumentFragment();
     var newFeatures = document.createElement('ul');
@@ -30,8 +32,8 @@
     object.offer.photos.forEach(function (src) {
       var newPhoto = document.createElement('img');
       newPhoto.classList.add('popup__photo');
-      newPhoto.width = 45;
-      newPhoto.height = 40;
+      newPhoto.width = PHOTO_WIDTH;
+      newPhoto.height = PHOTO_HEIGHT;
       newPhoto.alt = object.offer.title;
       newPhoto.src = src;
       newPhotos.appendChild(newPhoto);
