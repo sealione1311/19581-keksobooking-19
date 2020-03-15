@@ -19,7 +19,7 @@
   var addressInput = adForm.querySelector('input[name=address]');
   var formElements = adForm.querySelectorAll('fieldset');
   var filtersElements = document.querySelectorAll('[name^=housing-]');
-  var filterSelects =  document.querySelectorAll('select[name^=housing-]');
+  var filterSelects = document.querySelectorAll('select[name^=housing-]');
   var filterCheckboxes = document.querySelectorAll('.map__checkbox');
   var resetButton = adForm.querySelector('.ad-form__reset');
 
@@ -36,7 +36,7 @@
   };
 
   var activateMap = function () {
-    addressInput.setAttribute('readonly', true)
+    addressInput.setAttribute('readonly', true);
     window.data.toggleDisabledElements(formElements, false);
     window.data.toggleDisabledElements(filtersElements, false);
     adForm.classList.remove('ad-form--disabled');
