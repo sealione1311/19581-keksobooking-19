@@ -1,11 +1,12 @@
 'use strict';
 (function () {
   var main = document.querySelector('main');
+  var successMessage = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+  var errorMessage = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+  var text = errorMessage.querySelector('.error__message');
+  var errorButton = errorMessage.querySelector('.error__button');
 
   var showSuccessMessage = function () {
-    var successMessage = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
-
-
     var removeSuccessMessage = function () {
       successMessage.remove();
       document.removeEventListener('keydown', onSuccessMessageEscPress);
@@ -17,6 +18,7 @@
         removeSuccessMessage();
       }
     };
+
     var onSuccessMessageClick = function () {
       removeSuccessMessage();
     };
@@ -27,10 +29,6 @@
   };
 
   var showErrorMessage = function (errorText) {
-    var errorMessage = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
-    var text = errorMessage.querySelector('.error__message');
-
-    var errorButton = errorMessage.querySelector('.error__button');
     var removeErrorMessage = function () {
       errorMessage.remove();
       document.removeEventListener('keydown', onErrorMessageEscPress);
@@ -42,15 +40,18 @@
         removeErrorMessage();
       }
     };
+
     var onErrorMessageClick = function () {
       removeErrorMessage();
     };
+
     text.textContent = errorText;
     main.appendChild(errorMessage);
     errorButton.addEventListener('click', onErrorMessageClick);
     document.addEventListener('keydown', onErrorMessageEscPress);
     document.addEventListener('mousedown', onErrorMessageClick);
   };
+
   window.messages = {
     success: showSuccessMessage,
     error: showErrorMessage

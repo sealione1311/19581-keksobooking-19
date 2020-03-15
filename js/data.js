@@ -1,30 +1,11 @@
 'use strict';
 
 (function () {
-  var KEYS = {
+  var DEFAULT_VALUE = 'any';
+  var Key = {
     ENTER: 'Enter',
     LEFT_MOUSE: 1,
     ESCAPE: 'Escape'
-  };
-
-  var getRandomNumber = function (min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-  };
-
-  var getRandomElement = function (array) {
-    return array[Math.floor(Math.random() * array.length)];
-  };
-
-  var getRandomArray = function (array) {
-    var randomArray = array.slice(0, getRandomNumber(1, array.length));
-    return randomArray.sort(function () {
-      return 0.5 - Math.random();
-    });
-  };
-  var getSortedArray = function (array) {
-    return array.sort(function () {
-      return 0.5 - Math.random();
-    });
   };
 
   var toggleDisabledElements = function (elements, value) {
@@ -56,16 +37,13 @@
   };
 
   window.data = {
-    enter: KEYS.ENTER,
-    escape: KEYS.ESCAPE,
-    leftKeyMouse: KEYS.LEFT_MOUSE,
-    getRandomNumber: getRandomNumber,
-    getRandomElement: getRandomElement,
-    getRandomArray: getRandomArray,
+    defaultValue: DEFAULT_VALUE,
+    enter: Key.ENTER,
+    escape: Key.ESCAPE,
+    leftKeyMouse: Key.LEFT_MOUSE,
     toggleDisabledElements: toggleDisabledElements,
     createElement: createElement,
     removePins: removePins,
-    removeCard: removeCard,
-    sortedArray: getSortedArray
+    removeCard: removeCard
   };
 })();

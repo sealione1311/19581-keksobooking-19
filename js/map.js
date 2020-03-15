@@ -3,21 +3,24 @@
 (function () {
   var PIN_WIDTH = 66;
   var PIN_HEIGHT = 86;
-  var MAP_LIMIT = {
-    top: 130,
-    right: 1200 - PIN_WIDTH / 2,
-    bottom: 630 - PIN_HEIGHT,
-    left: 0 - PIN_WIDTH / 2
-  };
-  var UNACTIVE_PIN_COORDS = '608px  408px';
+  var UNACTIVE_PIN_COORDS = '608  408';
   var MAIN_PIN_LEFT = '575px';
   var MAIN_PIN_TOP = '375px';
+  var HALF_PIN_WIDTH = PIN_WIDTH / 2;
+  var MapLimit = {
+    TOP: 130,
+    RIGHT: 1200 - HALF_PIN_WIDTH,
+    BOTTOM: 630 - PIN_HEIGHT,
+    LEFT: 0 - HALF_PIN_WIDTH
+  };
   var adForm = document.querySelector('.ad-form');
   var map = document.querySelector('.map');
   var mainPin = document.querySelector('.map__pin--main');
   var addressInput = adForm.querySelector('input[name=address]');
   var formElements = adForm.querySelectorAll('fieldset');
   var filtersElements = document.querySelectorAll('[name^=housing-]');
+  var filterSelects = document.querySelectorAll('select[name^=housing-]');
+  var filterCheckboxes = document.querySelectorAll('.map__checkbox');
   var resetButton = adForm.querySelector('.ad-form__reset');
 
   var disableMap = function () {
@@ -33,21 +36,29 @@
   };
 
   var activateMap = function () {
+    addressInput.setAttribute('readonly', true);
     window.data.toggleDisabledElements(formElements, false);
     window.data.toggleDisabledElements(filtersElements, false);
     adForm.classList.remove('ad-form--disabled');
     map.classList.remove('map--faded');
-    window.backend.load(window.adverts.onLoad, window.adverts.onError);
+    window.backend.load(window.advertsFilter.onLoad, window.advertsFilter.onError);
     mainPin.removeEventListener('mousedown', activateMap);
     mainPin.removeEventListener('keydown', onMainPinKeydown);
-    window.form.matchRoomsAndGuests();
   };
 
   var resetForm = function () {
     window.data.removePins();
+    filterSelects.forEach(function (select) {
+      select.value = window.data.defaultValue;
+    });
+    filterCheckboxes.forEach(function (checkbox) {
+      checkbox.checked = false;
+    });
     adForm.reset();
     disableMap();
     window.data.removeCard();
+    window.upload.remove();
+    window.form.setSelectDefault();
   };
 
   var onLoadData = function () {
@@ -93,12 +104,11 @@
           }
           return current;
         };
-        var currentLeftCoord = getCurrentCoords(MAP_LIMIT.left, MAP_LIMIT.right, (mainPin.offsetLeft - shift.x));
-        var currentTopCoord = getCurrentCoords(MAP_LIMIT.top, MAP_LIMIT.bottom, (mainPin.offsetTop - shift.y));
+        var currentLeftCoord = getCurrentCoords(MapLimit.LEFT, MapLimit.RIGHT, (mainPin.offsetLeft - shift.x));
+        var currentTopCoord = getCurrentCoords(MapLimit.TOP, MapLimit.BOTTOM, (mainPin.offsetTop - shift.y));
         mainPin.style.top = currentTopCoord + 'px';
         mainPin.style.left = currentLeftCoord + 'px';
-        addressInput.value = (currentLeftCoord + PIN_WIDTH / 2) + 'px' + ' ' + (currentTopCoord + PIN_HEIGHT) + 'px';
-
+        addressInput.value = (currentLeftCoord + HALF_PIN_WIDTH) + ' ' + (currentTopCoord + PIN_HEIGHT);
       };
 
       var onMouseUp = function (upEvt) {

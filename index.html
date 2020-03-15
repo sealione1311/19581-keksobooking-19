@@ -106,7 +106,7 @@
           <label class="ad-form__label" for="address">Адрес</label>
           <input id="address" name="address" type="text">
         </fieldset>
-        <fieldset class="ad-form__element">
+        <fieldset class="ad-form__element ad-form__element--type">
           <label class="ad-form__label" for="type">Тип жилья</label>
           <select id="type" name="type">
             <option value="bungalo">Бунгало</option>
@@ -115,7 +115,7 @@
             <option value="palace">Дворец</option>
           </select>
         </fieldset>
-        <fieldset class="ad-form__element">
+        <fieldset class="ad-form__element ad-form__element--price">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
           <input id="price" name="price" type="number" required max="1000000" placeholder="1000">
         </fieldset>
@@ -141,7 +141,7 @@
             <option value="100">100 комнат</option>
           </select>
         </fieldset>
-        <fieldset class="ad-form__element">
+        <fieldset class="ad-form__element ad-form__element--capacity">
           <label class="ad-form__label" for="capacity">Количество мест</label>
           <select id="capacity" name="capacity">
             <option value="3" selected>для 3 гостей</option>
@@ -256,5 +256,7 @@
   <script src="js/advertsFilter.js"></script>
   <script src="js/map.js"></script>
   <script src="js/form.js"></script>
+  <script src="js/uploadImg.js"></script>
+
 </body>
 </html>

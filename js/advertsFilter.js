@@ -1,17 +1,19 @@
 'use strict';
 
 (function () {
-  var HOUSING__PRICE = {
-    lowMax: 10000,
-    middleMin: 10000,
-    middleMax: 50000,
-    hightMin: 50000
+  var LOW_PRICE = 'low';
+  var MIDDLE_PRICE = 'middle';
+  var HIGHT_PRICE = 'high';
+  var HousingPrice = {
+    LOW_MAX: 10000,
+    MIDDLE_MIN: 10000,
+    MIDDLE_MAX: 50000,
+    HIGHT_MIN: 50000
   };
   var advertsData = [];
   var adverts = [];
   var mapFilters = document.querySelector('.map__filters');
   var housingType = document.querySelector('#housing-type');
-
   var housingPrice = document.querySelector('#housing-price');
   var housingRooms = document.querySelector('#housing-rooms');
   var housingGuests = document.querySelector('#housing-guests');
@@ -19,7 +21,7 @@
 
   var onLoad = function (data) {
     advertsData = data;
-    window.pins.render(window.data.sortedArray(advertsData));
+    window.pins.render(advertsData);
   };
 
   var onError = function (errorMassage) {
@@ -27,28 +29,28 @@
   };
 
   var getHousingType = function (advert) {
-    return housingType.value === 'any' ? true : advert.offer.type === housingType.value;
+    return housingType.value === window.data.defaultValue ? true : advert.offer.type === housingType.value;
   };
   var getHousingPrice = function (advert) {
     switch (housingPrice.value) {
-      case ('low'):
-        return advert.offer.price < HOUSING__PRICE.lowMax;
+      case (LOW_PRICE):
+        return advert.offer.price < HousingPrice.LOW_MAX;
 
-      case ('middle'):
-        return advert.offer.price >= HOUSING__PRICE.middleMin && advert.offer.price < HOUSING__PRICE.middleMax;
+      case (MIDDLE_PRICE):
+        return advert.offer.price >= HousingPrice.MIDDLE_MIN && advert.offer.price < HousingPrice.MIDDLE_MAX;
 
-      case ('high'):
-        return advert.offer.price >= HOUSING__PRICE.hightMin;
+      case (HIGHT_PRICE):
+        return advert.offer.price >= HousingPrice.HIGHT_MIN;
     }
     return true;
   };
 
   var getHousingRooms = function (advert) {
-    return housingRooms.value === 'any' ? true : advert.offer.rooms.toString() === housingRooms.value;
+    return housingRooms.value === window.data.defaultValue ? true : advert.offer.rooms.toString() === housingRooms.value;
   };
 
   var getHousingGuests = function (advert) {
-    return housingGuests.value === 'any' ? true : advert.offer.guests.toString() === housingGuests.value;
+    return housingGuests.value === window.data.defaultValue ? true : advert.offer.guests.toString() === housingGuests.value;
   };
 
   var getHousingFeatures = function (advert) {
@@ -66,15 +68,16 @@
     });
   };
 
-  var reload = function () {
-    window.debounce(filtrate);
+  var reload = window.debounce(function () {
+    filtrate();
     window.data.removeCard();
     window.data.removePins();
     window.pins.render(adverts);
-  };
+  });
 
   mapFilters.addEventListener('change', reload);
-  window.adverts = {
+
+  window.advertsFilter = {
     onLoad: onLoad,
     onError: onError,
   };
