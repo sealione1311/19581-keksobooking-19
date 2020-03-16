@@ -3,7 +3,7 @@
 (function () {
   var PIN_WIDTH = 66;
   var PIN_HEIGHT = 86;
-  var UNACTIVE_PIN_COORDS = '608  408';
+  var UNACTIVE_PIN_COORDS = '608, 408';
   var MAIN_PIN_LEFT = '575px';
   var MAIN_PIN_TOP = '375px';
   var HALF_PIN_WIDTH = PIN_WIDTH / 2;
@@ -44,6 +44,8 @@
     window.backend.load(window.advertsFilter.onLoad, window.advertsFilter.onError);
     mainPin.removeEventListener('mousedown', activateMap);
     mainPin.removeEventListener('keydown', onMainPinKeydown);
+    window.form.matchRoomsAndGuests();
+    window.form.addAllFormListeners();
   };
 
   var resetForm = function () {
@@ -59,6 +61,7 @@
     window.data.removeCard();
     window.upload.remove();
     window.form.setSelectDefault();
+    window.form.removeAllFormListeners();
   };
 
   var onLoadData = function () {
@@ -108,7 +111,7 @@
         var currentTopCoord = getCurrentCoords(MapLimit.TOP, MapLimit.BOTTOM, (mainPin.offsetTop - shift.y));
         mainPin.style.top = currentTopCoord + 'px';
         mainPin.style.left = currentLeftCoord + 'px';
-        addressInput.value = (currentLeftCoord + HALF_PIN_WIDTH) + ' ' + (currentTopCoord + PIN_HEIGHT);
+        addressInput.value = (currentLeftCoord + HALF_PIN_WIDTH) + ', ' + (currentTopCoord + PIN_HEIGHT);
       };
 
       var onMouseUp = function (upEvt) {
