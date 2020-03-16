@@ -9,7 +9,7 @@
   var THREE_ROOMS = 3;
   var HUNDRED_ROOMS = 100;
   var TEXT_ONE_ROOM = 'Можно выбрать 1 гостя';
-  var TEXT_TWO_ROOMS = 'Можно выбрать 1 или 2 гостя';
+  var TEXT_TWO_ROOMS = 'Можно выбрать 1 или 2 гостей';
   var TEXT_THREE_ROOMS = 'Можно выбрать 1, 2 или 3 гостей';
   var TEXT_HUNDRED_ROOMS = 'Выбирете вариант "не для гостей"';
   var minPrice = {
@@ -30,27 +30,36 @@
   var matchRoomsAndGuests = function () {
     var roomNumber = parseInt(roomSelect.value, 10);
     var capacity = parseInt(guestSelect.value, 10);
+    var textError;
     switch (true) {
       case (roomNumber === ONE_ROOM && capacity !== ONE_GUEST):
-        roomSelect.setCustomValidity(TEXT_ONE_ROOM);
-        roomsError.textContent = TEXT_ONE_ROOM;
-        break;
+        guestSelect.setCustomValidity(TEXT_ONE_ROOM);
+        textError = TEXT_ONE_ROOM;
+        return textError;
       case ((roomNumber === TWO_ROOMS && capacity === THREE_GUESTS) || (roomNumber === TWO_ROOMS && capacity === NO_GUESTS)):
-        roomSelect.setCustomValidity(TEXT_TWO_ROOMS);
-        roomsError.textContent = TEXT_TWO_ROOMS;
-        break;
+        guestSelect.setCustomValidity(TEXT_TWO_ROOMS);
+        textError = TEXT_TWO_ROOMS;
+        return textError;
       case (roomNumber === THREE_ROOMS && capacity === NO_GUESTS):
-        roomSelect.setCustomValidity(TEXT_THREE_ROOMS);
-        roomsError.textContent = TEXT_THREE_ROOMS;
-        break;
+        guestSelect.setCustomValidity(TEXT_THREE_ROOMS);
+        textError = TEXT_THREE_ROOMS;
+        return textError;
       case (roomNumber === HUNDRED_ROOMS && capacity !== NO_GUESTS):
-        roomSelect.setCustomValidity(TEXT_HUNDRED_ROOMS);
-        roomsError.textContent = TEXT_HUNDRED_ROOMS;
-        break;
+        guestSelect.setCustomValidity(TEXT_HUNDRED_ROOMS);
+        textError = TEXT_HUNDRED_ROOMS;
+        return textError;
       default:
-        roomSelect.setCustomValidity('');
-        roomsError.textContent = '';
-    } roomsError.setAttribute('style', 'color: red');
+        guestSelect.setCustomValidity('');
+        textError = '';
+        return textError;
+    }
+  };
+
+  var onRoomsAndGuestsChange = function () {
+    var textError = matchRoomsAndGuests();
+    matchRoomsAndGuests();
+    roomsError.textContent = textError;
+    roomsError.setAttribute('style', 'color: red');
   };
 
   var matchTypeAndPrice = function () {
@@ -89,18 +98,33 @@
     window.backend.save(new FormData(adForm), window.map.onLoadData, window.advertsFilter.onError);
   };
 
-  roomSelect.addEventListener('change', matchRoomsAndGuests);
-  guestSelect.addEventListener('change', matchRoomsAndGuests);
-  typeSelect.addEventListener('change', onTypeSelectChange);
-  priceInput.addEventListener('keyup', onTypeSelectChange);
-  priceInput.addEventListener('change', onTypeSelectChange);
-  timeInSelect.addEventListener('change', onTimeinChange);
-  timeOutSelect.addEventListener('change', onTimeOutChange);
-  adForm.addEventListener('submit', onFormSubmit);
+  var removeAllFormListeners = function () {
+    roomSelect.removeEventListener('change', onRoomsAndGuestsChange);
+    guestSelect.removeEventListener('change', onRoomsAndGuestsChange);
+    typeSelect.removeEventListener('change', onTypeSelectChange);
+    priceInput.removeEventListener('keyup', onTypeSelectChange);
+    priceInput.removeEventListener('change', onTypeSelectChange);
+    timeInSelect.removeEventListener('change', onTimeinChange);
+    timeOutSelect.removeEventListener('change', onTimeOutChange);
+    adForm.removeEventListener('submit', onFormSubmit);
+  };
+
+  var addAllFormListeners = function () {
+    roomSelect.addEventListener('change', onRoomsAndGuestsChange);
+    guestSelect.addEventListener('change', onRoomsAndGuestsChange);
+    typeSelect.addEventListener('change', onTypeSelectChange);
+    priceInput.addEventListener('keyup', onTypeSelectChange);
+    priceInput.addEventListener('change', onTypeSelectChange);
+    timeInSelect.addEventListener('change', onTimeinChange);
+    timeOutSelect.addEventListener('change', onTimeOutChange);
+    adForm.addEventListener('submit', onFormSubmit);
+  };
 
   window.form = {
     matchRoomsAndGuests: matchRoomsAndGuests,
     setSelectDefault: setSelectDefault,
-    matchTypeAndPrice: matchTypeAndPrice
+    matchTypeAndPrice: matchTypeAndPrice,
+    addAllFormListeners: addAllFormListeners,
+    removeAllFormListeners: removeAllFormListeners
   };
 })();
