@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var URL_LOAD = 'https://25.javascript.pages.academy/keksobooking/data';
-  var URL_SAVE = 'https://25.javascript.pages.academy/keksobooking';
+  var URL_LOAD = 'https://23.javascript.pages.academy/keksobooking/data';
+  var URL_SAVE = 'https://23.javascript.pages.academy/keksobooking';
   var TIMEOUT_IN_MS = 10000;
   var RESPONSE_TYPE = 'json';
   var StatusCode = {
