@@ -9,7 +9,7 @@
   var renderPin = function (object) {
     var newPin = pinTamplate.cloneNode(true);
     var newPinImg = newPin.querySelector('img');
-    newPin.setAttribute('style', 'left: ' + object.location.x + 'px; top: ' + object.location.y + 'px');
+    newPin.setAttribute('style', 'left: ' + (object.location.lat + Math.random() * (object.location.lng + object.location.lat)) + 'px; top: ' + object.location.lng + 'px');
     newPinImg.src = object.author.avatar;
     newPinImg.alt = object.offer.title;
 
